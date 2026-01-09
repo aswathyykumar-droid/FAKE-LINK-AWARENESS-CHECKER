@@ -1,88 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Fake Link Awareness Checker</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f6ff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background: rgb(95, 10, 95);
-            padding: 30px;
-            width: 400px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 15px 0;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #d94af2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-    </style>
+  <title>Fake Link Awareness Checker</title>
+  <style>
+    body {
+      font-family: Arial; 
+      text-align: center; 
+      margin-top: 50px;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 10px 30px 10px 10px; /* space for the cross */
+      font-size: 16px;
+    }
+    .clear-btn {
+      position: relative;
+      left: -30px;  /* moves the X button inside input */
+      cursor: pointer;
+      font-weight: bold;
+      color: red;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
+  <h1>🔐 Fake Link Awareness Checker</h1>
+  <p>Paste a link below to check if it looks safe.</p>
 
-<div class="container">
-    <h2 style="color: #fbfafb;">Fake Link Awareness Checker</h2>
-    <p style="color: #fbfafb;">Paste the link below to check if it is safe</p>
+  <div style="display: inline-block; position: relative;">
+    <input type="text" id="link" placeholder="Enter URL here">
+    <span class="clear-btn" onclick="clearInput()">✖</span>
+  </div>
+  
+  <br><br>
+  <button onclick="checkLink()">Check Link</button>
 
-    <input type="text" id="linkInput" placeholder="Enter URL here">
-    <br>
-    <button onclick="checkLink()">Check Link</button>
+  <p id="result" style="font-weight:bold; margin-top:20px;"></p>
 
-    <div id="result"></div>
-</div>
-
-<script>
+  <script>
     function checkLink() {
-        let link = document.getElementById("linkInput").value;
-        let result = document.getElementById("result");
+      let url = document.getElementById("link").value;
+      let result = document.getElementById("result");
 
-        if (link === "") {
-            result.innerHTML = "⚠️ Please enter a link";
-            result.style.color = "orange";
-            return;
-        }
-
-        if (
-            !link.startsWith("https://") ||
-            link.length > 60 ||
-            link.includes("@") ||
-            link.includes("http://")
-        ) {
-            result.innerHTML = "⚠️ Suspicious Link";
-            result.style.color = "white";
-        } else {
-            result.innerHTML = "✅ Safe Link";
-            result.style.color = "white";
-        }
+      if (url.startsWith("https://")) {
+        result.style.color = "green";
+        result.innerText = "✅ This link looks SAFE";
+      } else {
+        result.style.color = "red";
+        result.innerText = "⚠️ This link looks SUSPICIOUS";
+      }
     }
-</script>
 
+    function clearInput() {
+      document.getElementById("link").value = "";
+      document.getElementById("result").innerText = "";
+    }
+  </script>
 </body>
 </html>
